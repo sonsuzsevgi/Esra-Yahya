@@ -6,12 +6,36 @@
   <title>ForeverLove - Biz Kimiz</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../style.css" /> 
 </head>
 <body>
 
-  <div id="header-placeholder"></div>
-
+  <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+          <div class="container">
+              <a class="navbar-brand" href="/">ForeverLove</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" aria-current="page" href="/main.html">Galeri</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/Gezinti/gezinti.html">Gezinti</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/BizKimiz/bizkimiz.html">Biz Kimiz</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/Iletisim/iletisim.html">İletişim</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+  </header>
   <main class="container my-5">
     <h2 class="text-center mb-4">Biz Kimiz</h2>
     <p class="lead text-center">Esra ve Yahya'nın aşk hikayesi...</p>
@@ -23,9 +47,13 @@
     </div>
   </main>
 
-  <div id="footer-placeholder"></div>
-
+  <footer class="bg-light text-muted py-4 mt-5">
+      <div class="container text-center">
+          <p>&copy; <span id="current-year"></span> ForeverLove. Tüm Hakları Saklıdır.</p>
+          <p>Birlikteyiz: <span id="love-timer"></span></p>
+      </div>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../script.js"></script>
+  <script src="../script.js"></script> 
 </body>
 </html>
