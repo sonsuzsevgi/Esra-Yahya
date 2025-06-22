@@ -19,7 +19,7 @@ function checkPassword() {
 function loadGallery() {
   const gallery = document.getElementById("gallery");
 
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 4; i++) {
     fetch(`Text/${i}.txt`)
       .then(response => response.text())
       .then(text => {
