@@ -1,39 +1,142 @@
+/* Genel gövde ayarları */
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fffafc;
+  color: #333;
   margin: 0;
   padding: 0;
-  background: #f8f8f8;
-  color: #333;
+}
+
+/* Başlık kısmı: Sayfa ortasında pastel arkaplanla */
+.hero {
+  background: linear-gradient(135deg, #ffd1dc, #ffe4e9);
+  height: 100vh;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-header {
-  background: #ffc0cb;
-  padding: 2rem;
-  border-bottom: 3px solid #ffb6c1;
+.hero h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: #d63384;
+  margin-bottom: 0.5rem;
 }
 
-#gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin: 2rem;
+.hero p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  color: #6c757d;
 }
 
-.card {
-  background: white;
+/* Bootstrap ile uyumlu pembe buton */
+.btn-pink {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+}
+.btn-pink:hover {
+  background-color: #ff85c1;
+}
+
+/* Şifre giriş alanı */
+#login-section {
+  margin-top: 2rem;
+}
+
+/* Galeri kartları */
+.card-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  color: #d63384;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Müzik simgesi (sağ altta sabit) */
+#music-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ff69b4;
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.3s;
+}
+#music-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Müzik kontrol paneli */
+#music-panel {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background-color: #fff0f6;
   padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  max-width: 300px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  width: 260px;
+  z-index: 1000;
 }
 
-.card img {
-  width: 100%;
-  border-radius: 8px;
+#music-panel h5 {
+  font-family: 'Dancing Script', cursive;
+  color: #e91e63;
+  text-align: center;
 }
 
-#music-player {
-  margin-top: 2rem;
+#music-panel .controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#music-panel .controls button {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+#music-panel .controls button:hover {
+  background-color: #ff85c1;
+}
+
+/* Gizli panel sınıfı */
+.hidden {
+  display: none;
+}
+
+/* Responsive kart ayarı */
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  #music-panel {
+    width: 90%;
+    right: 5%;
+  }
+
+  #music-icon {
+    bottom: 15px;
+    right: 15px;
+    font-size: 22px;
+    padding: 12px;
+  }
 }
