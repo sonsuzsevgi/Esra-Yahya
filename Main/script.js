@@ -1,7 +1,7 @@
 const PASSWORD = "1234";
 let currentTrack = 1;
 const totalTracks = 5; 
-
+const totalPhotos = 11;
 // Birliktelik başlangıç tarihi: 18 Ocak 2023, 00:00:00
 const startDate = new Date('2023-01-18T00:00:00');
 
@@ -28,16 +28,20 @@ function loadGallery() {
 
     gallery.innerHTML = '';
 
-    for (let i = 1; i <= 11; i++) { 
-        // YOL KONTROLÜ: main.html ile aynı dizinde Text klasörü varsa bu doğru
+    // Döngüyü sabit 11 yerine totalPhotos değişkeni ile çalıştır
+    for (let i = 1; i <= totalPhotos; i++) { 
         fetch(`Text/${i}.txt`) 
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP hata kodu: ${response.status}`);
+                    // Hata durumunda konsola daha açıklayıcı bir mesaj yazdırabiliriz
+                    console.warn(`Uyarı: Text/${i}.txt dosyası bulunamadı veya okunamadı. HTTP Hata Kodu: ${response.status}. Bu fotoğraf atlanıyor.`);
+                    return null; // Null döndürerek sonraki .then bloğunda işlem yapmayız
                 }
                 return response.text();
             })
             .then(text => {
+                if (text === null) return; // Eğer dosya bulunamadıysa buradan çık
+
                 const lines = text.split('\n');
                 const title = lines[0] || `Fotoğraf ${i} Başlığı`;
                 const desc = lines.slice(1).join('<br>') || 'Açıklama mevcut değil.';
@@ -59,7 +63,11 @@ function loadGallery() {
                 col.appendChild(card);
                 gallery.appendChild(col);
             })
-            .catch(err => console.error(`Fotoğraf ${i}.txt okunamadı veya işlenemedi:`, err));
+            .catch(err => {
+                // Sadece metin dosyasının yüklenmesi sırasında oluşan diğer hataları yakalarız.
+                // HTTP hataları artık .then(response => ...) içinde ele alınıyor.
+                console.error(`Fotoğraf ${i} metin dosyası işlenirken bir hata oluştu:`, err);
+            });
     }
 }
 
@@ -68,10 +76,30 @@ function loadGallery() {
  */
 function loadMusic() {
     const audio = document.getElementById("audio");
+    const musicIcon = document.getElementById("music-icon"); // Müzik ikonunu yakala
+
     if (audio) {
-        // YOL KONTROLÜ: main.html ile aynı dizinde Muzik klasörü varsa bu doğru
-        audio.src = `Muzik/${currentTrack}.mp3`; 
+        audio.src = `Muzik/${currentTrack}.mp3`;
         audio.play();
+
+        // Müzik çalmaya başladığında dönme sınıfını ekle
+        audio.onplay = () => {
+            if (musicIcon) {
+                musicIcon.classList.add('spinning-music-icon');
+            }
+        };
+
+        // Müzik durduğunda veya bittiğinde dönme sınıfını kaldır
+        audio.onpause = () => {
+            if (musicIcon) {
+                musicIcon.classList.remove('spinning-music-icon');
+            }
+        };
+        audio.onended = () => { // Şarkı bittiğinde de durdur
+            if (musicIcon) {
+                musicIcon.classList.remove('spinning-music-icon');
+            }
+        };
     }
 }
 

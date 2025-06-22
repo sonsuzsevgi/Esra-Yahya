@@ -1,6 +1,6 @@
 // Birliktelik başlangıç tarihi: 18 Ocak 2023, 00:00:00
 const startDate = new Date('2023-01-18T00:00:00');
-
+const totalLocations = 2; // Konum klasöründeki dosya sayısına göre güncelleyin!
 /**
  * Aşk sayacını günceller.
  */
@@ -56,7 +56,7 @@ function startLoveTimer() {
 }
 
 // Gezinti sayfasına özel fonksiyonlar
-const totalLocations = 2; // Konum klasöründeki dosya sayısına göre güncelleyin!
+
 
 async function getLocationImageUrls(locationId) {
     const imageUrls = [];
