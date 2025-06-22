@@ -8,6 +8,8 @@ body {
 }
 
 /* Başlık kısmı: Sayfa ortasında pastel arkaplanla */
+/* Bu stil, index.html'deki doğrudan kullanılan hero bölümü için geçerlidir. */
+/* header.html'deki .hero sınıfı için JavaScript üzerinden stil uygulanır. */
 .hero {
   background: linear-gradient(135deg, #ffd1dc, #ffe4e9);
   height: 100vh;
@@ -17,6 +19,10 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  /* Navbar'ın üstten yer açması için padding-top eklendi, sadece header.html'deki hero için */
+  /* Eğer index.html'deki hero için navbar'ın altında kalmasını istemiyorsanız bu satırı kaldırabilirsiniz. */
+  /* Ancak mevcut yapıda index.html'deki hero direkt HTML'de, navbar ise header.html'den yükleniyor. */
+  /* Bu yüzden bu padding-top genel bir hero tanımı olarak kalmalı. */
 }
 
 .hero h1 {
@@ -139,4 +145,31 @@ body {
     font-size: 22px;
     padding: 12px;
   }
+}
+
+/* Footer için ek stil */
+footer {
+    background-color: #f8f9fa; /* Bootstrap'in bg-light rengi */
+    color: #6c757d; /* Bootstrap'in text-muted rengi */
+    padding: 1.5rem 0;
+    margin-top: 3rem; /* Üstteki içerikle arasında boşluk bırakır */
+}
+
+/* Navbar stil iyileştirmeleri */
+.navbar-brand {
+    font-family: 'Dancing Script', cursive;
+    color: #d63384 !important; /* Pembe renk, !important ile Bootstrap'i ezeriz */
+    font-size: 1.8rem; /* Marka için daha büyük font */
+}
+
+.navbar-nav .nav-link {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; /* Kalınlık */
+    color: #6c757d; /* Gri tonu */
+    margin-right: 15px; /* Menü öğeleri arası boşluk */
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ff69b4; /* Hover'da pembe */
 }
