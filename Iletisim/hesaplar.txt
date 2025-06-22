@@ -16,9 +16,9 @@ facebook->https://www.facebook.com/yahya.haliloglu.3/?locale=tr_TR
 
 youtube->https://www.youtube.com/@yahyahaliloglu6432
 
-gmail->yahya61ts@gmail.com
+gmail->mailto:yahya61ts@gmail.com
 
-gmail->halilogluyahya@gmail.com
+gmail->mailto:halilogluyahya@gmail.com
 
 tiktok->
 
@@ -36,7 +36,7 @@ instagram->https://www.instagram.com/runarsee_/
 
 LinkedIn->https://www.linkedin.com/in/esranur-t-4a50552aa/
 
-gmail->runarse252@gmail.com
+gmail->mailto:runarse252@gmail.com
 
-gmail->nuresratopcu@gmail.com
+gmail->mailto:nuresratopcu@gmail.com
 
