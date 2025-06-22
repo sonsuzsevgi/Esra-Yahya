@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ForeverLove</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>ForeverLove</h1>
-    <h2>Esra & Yahya</h2>
+    <p>Esra & Yahya</p>
   </header>
 
-  <main>
-    <p>Bu site şu an yapım aşamasındadır</p>
-  </main>
+  <section id="login-section">
+    <h2>Şifre Girişi</h2>
+    <input type="password" id="password-input" placeholder="Şifreyi girin">
+    <button onclick="checkPassword()">Giriş Yap</button>
+    <p id="login-message"></p>
+  </section>
+
+  <section id="main-content" style="display:none;">
+    <div id="gallery"></div>
+
+    <div id="music-player">
+      <audio id="audio" controls autoplay loop></audio>
+      <button onclick="nextTrack()">Şarkıyı Değiştir</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
