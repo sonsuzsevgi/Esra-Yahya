@@ -1,7 +1,7 @@
 const PASSWORD = "1234";
 let currentTrack = 1;
 const totalTracks = 5; 
-const totalPhotos = 11;
+const totalPhotos = 29;
 // Birliktelik başlangıç tarihi: 18 Ocak 2023, 00:00:00
 const startDate = new Date('2023-01-18T00:00:00');
 
@@ -26,25 +26,54 @@ function loadGallery() {
     const gallery = document.getElementById("gallery");
     if (!gallery) return;
 
-    gallery.innerHTML = '';
+    gallery.innerHTML = ''; // Mevcut içeriği temizle
 
-    // Döngüyü sabit 11 yerine totalPhotos değişkeni ile çalıştır
-    for (let i = 1; i <= totalPhotos; i++) { 
-        fetch(`Text/${i}.txt`) 
+    const fetchPromises = []; // Tüm fetch işlemlerini saklayacak bir dizi
+
+    // Her bir fotoğraf için metin dosyasını çekme işlemini başlat ve promise'ları diziye ekle
+    for (let i = 1; i <= totalPhotos; i++) {
+        const promise = fetch(`Text/${i}.txt`)
             .then(response => {
                 if (!response.ok) {
-                    // Hata durumunda konsola daha açıklayıcı bir mesaj yazdırabiliriz
+                    // Dosya bulunamazsa veya okunamazsa uyarı ver
                     console.warn(`Uyarı: Text/${i}.txt dosyası bulunamadı veya okunamadı. HTTP Hata Kodu: ${response.status}. Bu fotoğraf atlanıyor.`);
-                    return null; // Null döndürerek sonraki .then bloğunda işlem yapmayız
+                    return null; // Null döndürerek hata durumunu işaretle
                 }
                 return response.text();
             })
             .then(text => {
-                if (text === null) return; // Eğer dosya bulunamadıysa buradan çık
+                // Eğer dosya bulunamadıysa, işlem yapmadan çık
+                if (text === null) {
+                    return { index: i, title: null, desc: null }; // Hatalı öğeyi işaretle
+                }
 
                 const lines = text.split('\n');
                 const title = lines[0] || `Fotoğraf ${i} Başlığı`;
                 const desc = lines.slice(1).join('<br>') || 'Açıklama mevcut değil.';
+
+                // Her promise tamamlandığında, fotoğrafın indeksini ve verilerini döndür
+                return { index: i, title, desc };
+            })
+            .catch(err => {
+                // Metin dosyasını işlerken oluşabilecek diğer hataları yakala
+                console.error(`Fotoğraf ${i} metin dosyası işlenirken bir hata oluştu:`, err);
+                return { index: i, title: null, desc: null }; // Hatalı öğeyi işaretle
+            });
+        fetchPromises.push(promise); // Oluşturulan promise'ı diziye ekle
+    }
+
+    // Tüm fetch işlemlerinin tamamlanmasını bekle
+    Promise.all(fetchPromises)
+        .then(results => {
+            // Promise.all zaten orijinal sırayı korur, ancak emin olmak için sıralama yapılabilir.
+            // Bu örnekte, index'e göre sıralama zaten gerekli olmayabilir çünkü Promise.all sırayı korur.
+            // Ama yine de güvenli tarafta olmak için bırakabiliriz.
+            results.sort((a, b) => a.index - b.index);
+
+            // Tüm sonuçlar geldikten sonra, bunları doğru sırayla DOM'a ekle
+            results.forEach(item => {
+                // Eğer metin dosyası bulunamadıysa bu öğeyi atla
+                if (item.title === null) return;
 
                 const col = document.createElement("div");
                 col.className = "col-md-4 mb-4";
@@ -53,22 +82,21 @@ function loadGallery() {
                 card.className = "card h-100 shadow-sm";
 
                 card.innerHTML = `
-                    <img src="img/${i}.jpg" class="card-img-top" alt="${title}"> 
+                    <img src="img/${item.index}.jpg" class="card-img-top" alt="${item.title}">
                     <div class="card-body">
-                        <h5 class="card-title">${title}</h5>
-                        <p class="card-text">${desc}</p>
+                        <h5 class="card-title">${item.title}</h5>
+                        <p class="card-text">${item.desc}</p>
                     </div>
                 `;
 
                 col.appendChild(card);
                 gallery.appendChild(col);
-            })
-            .catch(err => {
-                // Sadece metin dosyasının yüklenmesi sırasında oluşan diğer hataları yakalarız.
-                // HTTP hataları artık .then(response => ...) içinde ele alınıyor.
-                console.error(`Fotoğraf ${i} metin dosyası işlenirken bir hata oluştu:`, err);
             });
-    }
+        })
+        .catch(err => {
+            // Promise.all'ın kendisinde oluşabilecek hataları yakala
+            console.error("Tüm galeri öğeleri yüklenirken bir hata oluştu:", err);
+        });
 }
 
 /**
