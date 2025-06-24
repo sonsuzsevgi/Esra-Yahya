@@ -65,7 +65,8 @@ const socialMediaIcons = {
     'youtube': 'youtube.svg',
     'gmail': 'gmail.svg',
     'tiktok': 'tiktok.svg',
-    'pinterest': 'pinterest.svg'
+    'pinterest': 'pinterest.svg',
+    'snapchat': 'snapchat.svg'
 };
 
 /**
